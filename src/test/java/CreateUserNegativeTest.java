@@ -1,10 +1,19 @@
 
 import org.hamcrest.Matchers;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import static users.UsersClient.*;
+import users.UsersClient;
 
 public class CreateUserNegativeTest {
 
+
+    //Arrange
+    private UsersClient usersClient;
+
+    @BeforeClass
+    public void beforeClass(){
+        usersClient = new UsersClient();
+    }
 
     @Test
     public void shouldNotAllowToCreateUserWithInvalidEmail(){
@@ -17,7 +26,7 @@ public class CreateUserNegativeTest {
                 "}";
 
         //Act
-        createUserResponse(body)
+        usersClient.createUserResponse(body)
                 .then()
                 .log().body()
 
