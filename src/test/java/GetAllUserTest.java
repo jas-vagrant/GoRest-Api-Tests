@@ -1,6 +1,5 @@
-import io.restassured.http.ContentType;
+
 import org.hamcrest.Matchers;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
