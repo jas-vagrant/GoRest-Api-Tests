@@ -14,7 +14,7 @@ public class CreateUserTest {
         String body = "{\n" +
                 "  \"name\": \"Jaspreet Singh\",\n" +
                 "  \"gender\": \"male\",\n" +
-                "  \"email\": \"tenali.jsingh@134ce.com\",\n" +
+                "  \"email\": \"jas.jsingh@134ce.com\",\n" +
                 "  \"status\": \"active\"\n" +
                 "}";
 
@@ -26,7 +26,7 @@ public class CreateUserTest {
         //Assert
                 .statusCode(201)
                 .body("data.id", Matchers.notNullValue())
-                .body("data.email", Matchers.equalTo("tenali.jsingh@134ce.com"))
+                .body("data.email", Matchers.equalTo("jas.jsingh@134ce.com"))
                 .body("data.name",Matchers.equalTo("Jaspreet Singh"));
     }
 
@@ -37,7 +37,7 @@ public class CreateUserTest {
         String body = "{\n" +
                 "  \"name\": \"Aditi Rao\",\n" +
                 "  \"gender\": \"female\",\n" +
-                "  \"email\": \"aditi.rao@13ce.com\",\n" +
+                "  \"email\": \"aditir.rao@13ce.com\",\n" +
                 "  \"status\": \"active\"\n" +
                 "}";
 
@@ -49,8 +49,8 @@ public class CreateUserTest {
         //Assert
                 .statusCode(201)
                 .body("data.id", Matchers.notNullValue())
-                .body("data.email", Matchers.equalTo("aditi.rao@13ce.com"))
-                .body("data.name",Matchers.equalTo("Jaspreet Singh"));
+                .body("data.email", Matchers.equalTo("aditir.rao@13ce.com"))
+                .body("data.name",Matchers.equalTo("Aditi Rao"));
     }
 
     private Response createUserResponse(String body) {
