@@ -1,9 +1,9 @@
 
-import org.hamcrest.Matchers;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import users.UsersClient;
 import users.create.CreateUserRequestBody;
+import users.create.response.CreateUserResponse;
 
 import java.util.UUID;
 
@@ -14,51 +14,41 @@ public class CreateUserTest {
     //Arrange
     private UsersClient userClient;
     private CreateUserRequestBody createUserRequestBody;
+    private CreateUserResponse createUserResponse;
 
     @BeforeClass
-    public void beforeClass(){
+    public void beforeClass() {
         userClient = new UsersClient();
     }
 
     @Test
-    public void shouldCreateMaleUser(){
+    public void shouldCreateMaleUser() {
 
         //Arrange
-        String email = format("%s@gmail.com", UUID.randomUUID());
         createUserRequestBody = CreateUserRequestBody.builder().name("Jaspreet Singh").gender("male")
-                .email(email).status("active").build();
-
+                .email(format("%s@gmail.com", UUID.randomUUID())).status("active").build();
 
         //Act
-        userClient.createUserResponse(createUserRequestBody)
-                .then()
-                .log().body()
+        createUserResponse = userClient.createUserResponse(createUserRequestBody);
 
         //Assert
-                .statusCode(201)
-                .body("data.id", Matchers.notNullValue())
-                .body("data.email", Matchers.equalTo(email))
-                .body("data.name",Matchers.equalTo("Jaspreet Singh"));
+        createUserResponse.assertUser(createUserRequestBody);
+
     }
 
     @Test
-    public void shouldCreateFemaleUser(){
+    public void shouldCreateFemaleUser() {
 
         //Arrange
-        String email = format("%s@gmail.com", UUID.randomUUID());
         createUserRequestBody = CreateUserRequestBody.builder().name("Aditi Rao").gender("female")
-                .email(email).status("active").build();
+                .email(format("%s@gmail.com", UUID.randomUUID())).status("active").build();
 
         //Act
-        userClient.createUserResponse(createUserRequestBody)
-                .then()
-                .log().body()
+        createUserResponse = userClient.createUserResponse(createUserRequestBody);
 
         //Assert
-                .statusCode(201)
-                .body("data.id", Matchers.notNullValue())
-                .body("data.email", Matchers.equalTo(email))
-                .body("data.name",Matchers.equalTo("Aditi Rao"));
+        createUserResponse.assertUser(createUserRequestBody);
+
     }
 
 }
