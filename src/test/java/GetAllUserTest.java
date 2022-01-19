@@ -1,9 +1,11 @@
 
 
 import org.hamcrest.Matchers;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import users.UsersClient;
+import users.getAll.GetAllUserResponse;
 
 public class GetAllUserTest {
 
@@ -19,14 +21,12 @@ public class GetAllUserTest {
     public void shouldGetAllUsers(){
 
     //Act
-        usersClient.getAllUsers()
-                .then()
-                .log().body()
+    GetAllUserResponse getAllUserResponse = usersClient.getAllUsers();
 
     //Arrange
-                .statusCode(200)
-                .body("data",Matchers.hasSize(20))
-                .body("data",Matchers.hasItem(Matchers.hasEntry("gender","male")));
+    Assert.assertEquals(getAllUserResponse.getStatusCode(), 200);
+    Assert.assertEquals(getAllUserResponse.getData().size(),20);
+    Assert.assertTrue(getAllUserResponse.hasMaleUser());
     }
 
 }
