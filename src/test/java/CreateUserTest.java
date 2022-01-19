@@ -3,6 +3,7 @@ import org.hamcrest.Matchers;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import users.UsersClient;
+import users.create.CreateUserRequestBody;
 
 import java.util.UUID;
 
@@ -12,6 +13,7 @@ public class CreateUserTest {
 
     //Arrange
     private UsersClient userClient;
+    private CreateUserRequestBody createUserRequestBody;
 
     @BeforeClass
     public void beforeClass(){
@@ -22,16 +24,15 @@ public class CreateUserTest {
     public void shouldCreateMaleUser(){
 
         //Arrange
+        String name = "Jaspreet Singh";
+        String gender = "male";
+        String status = "active";
         String email = format("%s@gmail.com", UUID.randomUUID());
-        String body = format("{\n" +
-                "  \"name\": \"Jaspreet Singh\",\n" +
-                "  \"gender\": \"male\",\n" +
-                "  \"email\": \"%s\",\n" +
-                "  \"status\": \"active\"\n" +
-                "}",email);
+        createUserRequestBody = new CreateUserRequestBody(name, gender, email, status);
+
 
         //Act
-        userClient.createUserResponse(body)
+        userClient.createUserResponse(createUserRequestBody)
                 .then()
                 .log().body()
 
@@ -46,16 +47,14 @@ public class CreateUserTest {
     public void shouldCreateFemaleUser(){
 
         //Arrange
+        String name = "Aditi Rao";
+        String gender = "female";
+        String status = "active";
         String email = format("%s@gmail.com", UUID.randomUUID());
-        String body = format("{\n" +
-                "  \"name\": \"Aditi Rao\",\n" +
-                "  \"gender\": \"female\",\n" +
-                "  \"email\": \"%s\",\n" +
-                "  \"status\": \"active\"\n" +
-                "}",email);
+        createUserRequestBody = new CreateUserRequestBody(name, gender, email, status);
 
         //Act
-        userClient.createUserResponse(body)
+        userClient.createUserResponse(createUserRequestBody)
                 .then()
                 .log().body()
 
